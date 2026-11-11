@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14213D" />
+  <script>
+    try { var t = localStorage.getItem("sava-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/inner.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <title>SAVA</title>
+  <meta name="description" content="" />
+</head>
+<body>
+  <!-- ============ Reading progress ============ -->
+  <div class="sava-progress" id="progress" aria-hidden="true"></div>
+
+  <!-- ============ Header ============ -->
+  <header class="sava-header">
+    <a class="sava-brand" href="/" aria-label="SAVA home"><span class="sava-brand-mark">S</span>SAVA</a>
+    <form class="sava-search" role="search" action="/posts" autocomplete="off">
+      <input name="q" type="search" placeholder="Search jobs, results, admit cards" aria-label="Search posts" />
+      <button type="submit">Search</button>
+    </form>
+    <button class="sava-icon-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg></button>
+  </header>
+
+  <main class="sava-main" id="main">
+    <nav class="sava-crumbs" id="crumbs" aria-label="Breadcrumb"><a href="/">Home</a></nav>
+
+    <!-- ============ Hero: title, key facts, call-to-action ============ -->
+    <section class="sava-hero" id="hero" aria-live="polite">
+      <div class="sava-skel"><i></i><i></i><i></i><i></i></div>
+    </section>
+
+    <!-- ============ Section navigation (filled by post.js) ============ -->
+    <nav class="sava-sn" id="sn" aria-label="On this page" hidden></nav>
+
+    <!-- ============ Sections + sidebar ============ -->
+    <div class="sava-pg">
+      <div class="sava-pg-main" id="sections"></div>
+      <aside class="sava-pg-side" id="side"></aside>
+    </div>
+  </main>
+
+  <footer class="sava-footer">
+    <p><strong>SAVA</strong> is an independent information website and is not connected to any government body. Always confirm dates, eligibility and fees on the official notification before you apply.</p>
+    <nav aria-label="Footer"><a href="/about">About</a><a href="/contact">Contact</a><a href="/disclaimer">Disclaimer</a><a href="/privacy">Privacy policy</a></nav>
+  </footer>
+
+  <!-- ============ Mobile: sticky apply bar, back to top, tab bar ============ -->
+  <div class="sava-cta" id="cta" hidden></div>
+  <button class="sava-top" id="topBtn" type="button" aria-label="Back to top" hidden>&uarr;</button>
+  <nav class="sava-tabbar" aria-label="Quick navigation">
+    <a href="/">Home</a><a href="/posts?type=job">Jobs</a><a href="/posts?type=result">Results</a><a href="/posts?type=admit_card">Admit cards</a><a href="/#subscribe">Alerts</a>
+  </nav>
+  <div class="sava-toast" id="toast" role="status" hidden></div>
+
+  <script src="/js/sava-ui.js"></script>
+  <script src="/js/sava-content.js"></script>
+  <script src="/js/post.js"></script>
+</body>
+</html>

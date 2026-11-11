@@ -1,0 +1,142 @@
+/* ================================================================
+   INNER PAGES — posts list, post detail, shared buttons/toast/pager
+   Needs style.css (tokens, header, chips, panel) loaded first.
+   Also reused by admin.css.
+   ================================================================ */
+
+:root { --on-accent: #FFFFFF; }
+[data-theme="dark"] { --on-accent: #0D1422; }
+
+/* ---------- Breadcrumb + tag ---------- */
+
+.sava-crumbs { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0 4px; color: var(--muted); font-size: .92rem; }
+.sava-crumbs a { font-weight: 600; text-decoration: underline; }
+.sava-tag {
+  display: inline-block; padding: 0 7px; border: 1px solid var(--accent, var(--line)); border-radius: 3px;
+  color: var(--accent, var(--muted)); font-size: .82rem; font-weight: 700; line-height: 1.5;
+}
+
+/* ---------- Buttons ---------- */
+
+.sava-btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px;
+  border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); color: var(--ink); font-weight: 700;
+}
+.sava-btn:hover { border-color: var(--saffron); }
+.sava-btn-primary { background: var(--saffron); border-color: var(--saffron); color: #14213D; }
+.sava-btn[disabled] { opacity: .5; cursor: default; }
+
+/* ---------- Toast ---------- */
+
+.sava-toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(76px + env(safe-area-inset-bottom, 0px)); z-index: 40;
+  max-width: calc(100vw - 28px); padding: 10px 16px; border-radius: var(--radius-md);
+  background: var(--ink); color: var(--bg); font-weight: 600; box-shadow: var(--shadow-pop);
+}
+@media (min-width: 980px) { .sava-toast { bottom: 24px; } }
+
+/* ---------- Pager ---------- */
+
+.sava-pager { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 18px 0 26px; }
+.sava-pager button {
+  min-width: 40px; height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--radius-md);
+  background: var(--surface); color: var(--ink); font-weight: 600;
+}
+.sava-pager button[aria-current="page"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.sava-pager button:disabled { opacity: .4; cursor: default; }
+
+/* ---------- Posts list ---------- */
+
+.sava-ls-head { padding: 10px 0 4px; }
+.sava-ls-head h1 { font-size: clamp(1.5rem, 4.5vw, 2.2rem); font-weight: 800; }
+.sava-ls-count { margin: 6px 0 0; color: var(--muted); min-height: 1.5em; }
+
+.sava-ls-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
+.sava-ls-tabs::-webkit-scrollbar { display: none; }
+.sava-ls-tabs a {
+  flex: none; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-weight: 600;
+}
+.sava-ls-tabs a:hover { border-color: var(--accent); }
+.sava-ls-tabs a[aria-current="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+.sava-ls-filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-bottom: 14px; }
+.sava-ls-filters select, .sava-ls-filters button {
+  height: 42px; min-width: 0; padding: 0 10px; border: 1px solid var(--line); border-radius: var(--radius-md);
+  background: var(--surface); color: var(--ink); font: inherit;
+}
+.sava-ls-filters button { grid-column: 1 / -1; font-weight: 600; }
+@media (min-width: 720px) {
+  .sava-ls-filters { grid-template-columns: 1fr 1fr auto; }
+  .sava-ls-filters button { grid-column: auto; padding: 0 16px; }
+}
+
+.sava-ls-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+.sava-ls-list li { border-top: 1px solid var(--line); border-left: 4px solid var(--accent, var(--line)); }
+.sava-ls-list li:first-child { border-top: 0; }
+.sava-ls-list li > a { display: block; padding: 12px 14px; }
+.sava-ls-list li > a:hover { background: var(--bg); }
+.sava-ls-title { display: block; font-weight: 600; }
+.sava-ls-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px; margin-top: 4px; font-size: .92rem; color: var(--muted); }
+.sava-ls-meta .urgent { color: var(--danger); font-weight: 700; }
+.sava-ls-list .sava-empty, .sava-ls-list .sava-skel { padding: 14px; }
+.sava-ls-list .sava-empty button { margin-left: 6px; padding: 4px 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); color: var(--ink); font-weight: 600; }
+
+/* ---------- Post detail ---------- */
+
+.sava-ps { display: grid; gap: 18px; padding: 8px 0 24px; }
+.sava-ps-main {
+  min-width: 0; padding: 18px 16px; background: var(--surface); border: 1px solid var(--line);
+  border-top: 4px solid var(--accent, var(--saffron)); border-radius: var(--radius-md);
+}
+.sava-ps-main h1 { margin: 10px 0 8px; font-size: clamp(1.4rem, 4.5vw, 2.1rem); font-weight: 800; overflow-wrap: anywhere; }
+.sava-ps-byline { color: var(--muted); font-size: .92rem; }
+.sava-ps-sum { max-width: 68ch; margin: 12px 0 0; color: var(--muted); }
+
+.sava-ps-deadline { margin: 16px 0 0; padding: 12px 14px; border: 1px solid var(--line); border-left: 4px solid var(--danger); border-radius: var(--radius-md); }
+.sava-ps-deadline.closed { border-left-color: var(--muted); }
+.sava-ps-deadline strong { color: var(--danger); font-size: 1.1rem; }
+.sava-ps-deadline.closed strong { color: var(--muted); }
+.sava-ps-deadline small { display: block; color: var(--muted); }
+.sava-meter { height: 4px; margin-top: 8px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.sava-meter i { display: block; height: 100%; background: var(--danger); }
+
+.sava-facts { display: grid; grid-template-columns: minmax(110px, auto) 1fr; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+.sava-facts dt, .sava-facts dd { margin: 0; padding: 9px 12px; border-top: 1px solid var(--line); }
+.sava-facts dt { color: var(--muted); font-weight: 600; background: var(--bg); }
+.sava-facts dt:first-of-type, .sava-facts dt:first-of-type + dd { border-top: 0; }
+
+.sava-ps-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+
+.sava-prose { max-width: 70ch; line-height: 1.65; overflow-wrap: anywhere; }
+.sava-prose h3 { margin: 22px 0 8px; font: 800 1.25rem var(--font-head); }
+.sava-prose p { margin: 0 0 12px; }
+.sava-prose ul { margin: 0 0 14px; padding-left: 22px; }
+.sava-prose a { color: var(--t-job); text-decoration: underline; }
+.sava-table-wrap { overflow-x: auto; margin: 0 0 14px; }
+.sava-prose table { width: 100%; border-collapse: collapse; min-width: 320px; }
+.sava-prose th, .sava-prose td { padding: 8px 10px; border: 1px solid var(--line); text-align: left; }
+.sava-prose th { background: var(--bg); }
+
+.sava-ps-note { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
+
+.sava-ps-side { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.sava-share { display: flex; flex-wrap: wrap; gap: 8px; }
+.sava-share .sava-btn { min-height: 40px; padding: 0 14px; }
+.sava-related { list-style: none; margin: 0; padding: 0; }
+.sava-related li { padding: 8px 0; border-top: 1px solid var(--line); }
+.sava-related a { font-weight: 600; }
+.sava-related a:hover { text-decoration: underline; }
+.sava-related small { display: block; color: var(--muted); }
+
+@media (min-width: 980px) {
+  .sava-ps { grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; }
+  .sava-ps-main { padding: 24px 28px; }
+  .sava-ps-side { position: sticky; top: 76px; }
+}
+
+@media print {
+  .sava-header, .sava-tabbar, .sava-ps-side, .sava-ps-actions, .sava-footer, .sava-crumbs, .sava-toast { display: none !important; }
+  body { background: #fff; color: #000; padding: 0; }
+  .sava-ps { display: block; }
+  .sava-ps-main { border: 0; padding: 0; }
+}

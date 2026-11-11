@@ -1,0 +1,118 @@
+/* ================================================================
+   ADMIN — dashboard, table, editor dialog
+   Needs style.css + inner.css loaded first.
+   ================================================================ */
+
+body.sava-admin { padding-bottom: 0; }
+.sava-ad-spacer { flex: 1; }
+.sava-ad-tools { display: flex; gap: 8px; }
+.sava-ad-tools button {
+  height: 40px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .3); border-radius: var(--radius-md);
+  background: transparent; color: inherit; font-weight: 600;
+}
+
+/* ---------- Forms ---------- */
+
+.sava-ad-form { display: grid; gap: 12px; padding: 16px; }
+.sava-ad-form h1, .sava-ad-form h2 { font-size: 1.3rem; }
+.sava-field { display: grid; gap: 4px; font-weight: 600; min-width: 0; }
+.sava-field small { color: var(--muted); font-weight: 400; }
+.sava-field input, .sava-field select, .sava-field textarea {
+  width: 100%; min-height: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--radius-md);
+  background: var(--bg); color: var(--ink); font: 400 1rem var(--font-body);
+}
+.sava-field textarea { resize: vertical; }
+.sava-ad-grid { display: grid; gap: 12px; }
+.sava-ad-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.sava-ad-row .sava-btn { min-height: 34px; padding: 0 12px; }
+.sava-ad-row input[type="file"] { min-height: 0; padding: 6px; max-width: 55%; }
+.sava-ad-err { min-height: 1.4em; margin: 0; color: var(--danger); font-weight: 600; }
+.sava-ad-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; position: sticky; bottom: 0; padding: 10px 0 2px; background: var(--surface); }
+.sava-ad-preview { padding: 10px 12px; border: 1px dashed var(--line); border-radius: var(--radius-md); }
+@media (min-width: 640px) {
+  .sava-ad-grid { grid-template-columns: 1fr 1fr; }
+  .span2 { grid-column: 1 / -1; }
+}
+
+.sava-ad-login { max-width: 400px; margin: 8vh auto; padding: 4px; }
+
+dialog {
+  width: min(760px, calc(100vw - 20px)); max-height: 92vh; padding: 0; border: 1px solid var(--line);
+  border-radius: var(--radius-md); background: var(--surface); color: var(--ink);
+}
+dialog::backdrop { background: rgba(10, 16, 29, .6); }
+
+/* ---------- Stats + toolbar ---------- */
+
+.sava-ad-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 18px 0 10px; }
+.sava-ad-stats div { padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--saffron); border-radius: var(--radius-md); }
+.sava-ad-stats b { display: block; font: 800 1.7rem var(--font-head); }
+.sava-ad-stats span { color: var(--muted); font-weight: 600; }
+@media (min-width: 720px) { .sava-ad-stats { grid-template-columns: repeat(4, 1fr); } }
+
+.sava-ad-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0 12px; }
+.sava-ad-bar input, .sava-ad-bar select {
+  height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); color: var(--ink); font: inherit;
+}
+.sava-ad-bar input { flex: 1 1 220px; min-width: 0; }
+
+/* ---------- Table ---------- */
+
+.sava-ad-tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); }
+.sava-ad-table { width: 100%; min-width: 720px; border-collapse: collapse; }
+.sava-ad-table th, .sava-ad-table td { padding: 10px 12px; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
+.sava-ad-table thead th { border-top: 0; background: var(--bg); color: var(--muted); font-size: .9rem; }
+.sava-ad-table td small { display: block; color: var(--muted); }
+.sava-ad-table .sava-empty { padding: 16px; }
+
+.sava-pill { display: inline-block; padding: 0 8px; border-radius: 999px; font-size: .82rem; font-weight: 700; border: 1px solid var(--line); }
+.sava-pill.published { color: var(--ok); border-color: var(--ok); }
+.sava-pill.draft { color: var(--muted); }
+
+.sava-ad-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.sava-ad-actions button, .sava-ad-actions a {
+  padding: 4px 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); color: var(--ink); font: 600 .92rem var(--font-body);
+}
+.sava-ad-actions .danger { color: var(--danger); border-color: var(--danger); }
+
+/* ---------- Page sections editor ---------- */
+
+.sava-ad-det summary { cursor: pointer; padding: 6px 0; font-weight: 700; }
+#detailsBox { display: grid; gap: 14px; padding-top: 8px; }
+.sava-rep { display: grid; gap: 10px; min-width: 0; margin: 0; padding: 10px 12px 12px; border: 1px solid var(--line); border-radius: var(--radius-md); }
+.sava-rep legend { padding: 0 6px; font-weight: 700; }
+.sava-rep > .sava-btn { justify-self: start; min-height: 36px; padding: 0 14px; }
+.sava-rep-rows { display: grid; gap: 8px; }
+.sava-rep-row { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)) auto auto; gap: 6px; align-items: center; }
+.sava-rep-row input[data-k] {
+  width: 100%; min-width: 0; min-height: 40px; padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--radius-md);
+  background: var(--bg); color: var(--ink); font: 400 1rem var(--font-body);
+}
+.sava-rep-hl { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: .85rem; font-weight: 600; }
+.sava-rep-hl input { width: 18px; height: 18px; min-height: 0; }
+.sava-rep-row button[data-del] { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); color: var(--danger); font-size: 1.2rem; }
+@media (max-width: 639px) {
+  .sava-rep-row { grid-template-columns: 1fr auto auto; }
+  .sava-rep-row input[data-k] { grid-column: 1 / -1; }
+}
+
+/* ---------- Editor page sections (rows of dates, fees, age, vacancy, links) ---------- */
+
+.sava-ad-sec { display: grid; gap: 10px; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); }
+.sava-ad-sec h3 { margin: 0; font: 800 1.05rem var(--font-head); }
+.sava-ad-sec > small { color: var(--muted); }
+.sava-ad-rows { display: grid; gap: 8px; }
+.sava-ad-r { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)) auto auto; gap: 6px; align-items: center; }
+.sava-ad-r input[data-k] {
+  width: 100%; min-width: 0; min-height: 40px; padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--radius-md);
+  background: var(--bg); color: var(--ink); font: 400 1rem var(--font-body);
+}
+.sava-ad-hl { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: .85rem; font-weight: 600; white-space: nowrap; }
+.sava-ad-hl input { width: 18px; height: 18px; }
+.sava-ad-r button[data-del] { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); color: var(--danger); font-size: 1.2rem; }
+.sava-ad-secbar { display: flex; flex-wrap: wrap; gap: 8px; }
+.sava-ad-secbar .sava-btn { min-height: 36px; padding: 0 14px; }
+@media (max-width: 639px) {
+  .sava-ad-r { grid-template-columns: 1fr auto auto; }
+  .sava-ad-r input[data-k] { grid-column: 1 / -1; }
+}

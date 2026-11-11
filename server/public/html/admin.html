@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14213D" />
+  <script>
+    try { var t = localStorage.getItem("sava-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/inner.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin | SAVA</title>
+</head>
+<body class="sava-admin">
+  <!-- ============ Header ============ -->
+  <header class="sava-header">
+    <a class="sava-brand" href="/" aria-label="SAVA home"><span class="sava-brand-mark">S</span>Admin</a>
+    <span class="sava-ad-spacer"></span>
+    <div class="sava-ad-tools" id="adminTools" hidden>
+      <button type="button" id="pwBtn">Password</button>
+      <button type="button" id="logoutBtn">Sign out</button>
+    </div>
+    <button class="sava-icon-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg></button>
+  </header>
+
+  <main class="sava-main">
+    <!-- ============ Sign in ============ -->
+    <section class="sava-panel sava-ad-login" id="loginView" hidden>
+      <h1>Sign in</h1>
+      <form id="loginForm" class="sava-ad-form">
+        <label class="sava-field">Email<input id="loginEmail" type="email" autocomplete="username" required /></label>
+        <label class="sava-field">Password<input id="loginPass" type="password" autocomplete="current-password" required /></label>
+        <p class="sava-ad-err" id="loginErr" role="alert"></p>
+        <button class="sava-btn sava-btn-primary" type="submit">Sign in</button>
+      </form>
+    </section>
+
+    <!-- ============ Dashboard ============ -->
+    <section id="appView" hidden>
+      <div class="sava-ad-stats" id="stats"></div>
+      <div class="sava-ad-bar">
+        <input id="adQ" type="search" placeholder="Search title or organization" aria-label="Search posts" />
+        <select id="adType" aria-label="Type"><option value="">All types</option><option value="job">Jobs</option><option value="result">Results</option><option value="admit_card">Admit cards</option><option value="answer_key">Answer keys</option><option value="syllabus">Syllabus</option><option value="admission">Admissions</option></select>
+        <select id="adStatus" aria-label="Status"><option value="">Any status</option><option value="published">Published</option><option value="draft">Draft</option></select>
+        <button class="sava-btn sava-btn-primary" type="button" id="newBtn">New post</button>
+        <a class="sava-btn" href="/api/admin/subscribers.csv" download>Export subscribers</a>
+      </div>
+      <div class="sava-ad-tablewrap">
+        <table class="sava-ad-table">
+          <thead><tr><th>Post</th><th>Type</th><th>Status</th><th>Last date</th><th>Actions</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <nav class="sava-pager" id="pager" aria-label="Pages"></nav>
+    </section>
+  </main>
+
+  <datalist id="stateList">
+    <option>All India</option><option>Andaman and Nicobar Islands</option><option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option><option>Chandigarh</option><option>Chhattisgarh</option><option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option><option>Goa</option><option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option><option>Jammu and Kashmir</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Ladakh</option><option>Lakshadweep</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option><option>Puducherry</option><option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
+  </datalist>
+  <datalist id="qualList">
+    <option>10th Pass</option><option>12th Pass</option><option>ITI</option><option>Diploma</option><option>Graduate</option><option>Post Graduate</option><option>B.Tech / B.E.</option><option>Any Degree</option>
+  </datalist>
+
+  <!-- ============ Post editor ============ -->
+  <dialog id="editor">
+    <form id="postForm" class="sava-ad-form" novalidate>
+      <h2 id="editorTitle">New post</h2>
+
+      <!-- Basics -->
+      <div class="sava-ad-grid">
+        <label class="sava-field span2">Title<input name="title" required maxlength="250" /></label>
+        <label class="sava-field">Type<select name="type" required><option value="job">Job</option><option value="result">Result</option><option value="admit_card">Admit card</option><option value="answer_key">Answer key</option><option value="syllabus">Syllabus</option><option value="admission">Admission</option></select></label>
+        <label class="sava-field">Organization<input name="organization" /></label>
+        <label class="sava-field">State<input name="state" list="stateList" /></label>
+        <label class="sava-field">Qualification<input name="qualification" list="qualList" /></label>
+        <label class="sava-field">Total vacancies<input name="vacancies" type="number" min="0" step="1" inputmode="numeric" /></label>
+        <label class="sava-field">Post date<input name="post_date" type="date" /></label>
+        <label class="sava-field">Last date<input name="last_date" type="date" /></label>
+        <label class="sava-field span2">Short information<textarea name="summary" rows="3" placeholder="Two or three lines: who is hiring, how many posts, who can apply."></textarea></label>
+      </div>
+
+      <!-- Page sections: each one appears on the post page only when it has rows -->
+      <section class="sava-ad-sec" aria-labelledby="h-dates">
+        <h3 id="h-dates">Important dates</h3>
+        <small>Tick Highlight on the deadline so it shows in red on the post page.</small>
+        <div class="sava-ad-rows" id="datesRows"></div>
+        <div class="sava-ad-secbar"><button type="button" class="sava-btn" data-add="dates">Add row</button><button type="button" class="sava-btn" data-preset="dates">Add typical rows</button></div>
+      </section>
+
+      <section class="sava-ad-sec" aria-labelledby="h-fees">
+        <h3 id="h-fees">Application fee</h3>
+        <div class="sava-ad-rows" id="feesRows"></div>
+        <div class="sava-ad-secbar"><button type="button" class="sava-btn" data-add="fees">Add row</button><button type="button" class="sava-btn" data-preset="fees">Add typical rows</button></div>
+        <label class="sava-field">Fee notes (one per line)<textarea name="fee_notes" rows="3" placeholder="Pay by debit card, credit card or net banking."></textarea></label>
+      </section>
+
+      <section class="sava-ad-sec" aria-labelledby="h-age">
+        <h3 id="h-age">Age limit and relaxation</h3>
+        <div class="sava-ad-rows" id="ageRows"></div>
+        <div class="sava-ad-secbar"><button type="button" class="sava-btn" data-add="age">Add row</button><button type="button" class="sava-btn" data-preset="age">Add typical rows</button></div>
+        <label class="sava-field">Relaxation note<input name="age_note" maxlength="300" placeholder="Extra age relaxation is given as per the rules." /></label>
+      </section>
+
+      <section class="sava-ad-sec" aria-labelledby="h-vac">
+        <h3 id="h-vac">Vacancy details</h3>
+        <small>One row per post: name, number of posts, and who is eligible.</small>
+        <div class="sava-ad-rows" id="vacancyRows"></div>
+        <div class="sava-ad-secbar"><button type="button" class="sava-btn" data-add="vacancy">Add row</button></div>
+      </section>
+
+      <section class="sava-ad-sec" aria-labelledby="h-how">
+        <h3 id="h-how">How to apply</h3>
+        <label class="sava-field">Steps (one per line)<textarea name="how_to" rows="5" placeholder="Read the official notification.&#10;Register on the official website.&#10;Fill the form and pay the fee."></textarea></label>
+      </section>
+
+      <section class="sava-ad-sec" aria-labelledby="h-links">
+        <h3 id="h-links">Important links</h3>
+        <small>The main apply link, notification PDF and official website below are added to this list automatically.</small>
+        <div class="sava-ad-rows" id="linksRows"></div>
+        <div class="sava-ad-secbar"><button type="button" class="sava-btn" data-add="links">Add row</button><button type="button" class="sava-btn" data-preset="links">Add typical rows</button></div>
+      </section>
+
+      <!-- Main links + file -->
+      <div class="sava-ad-grid">
+        <label class="sava-field span2">Main apply / result link<input name="apply_link" type="url" placeholder="https://" /></label>
+        <label class="sava-field span2">Official website<input name="official_link" type="url" placeholder="https://" /></label>
+        <div class="sava-field span2">
+          <label for="pdfField">Notification PDF</label>
+          <span class="sava-ad-row"><input name="notification_pdf" id="pdfField" placeholder="Link, or upload a file" /><input type="file" id="pdfFile" accept=".pdf,.jpg,.jpeg,.png" /></span>
+        </div>
+        <div class="sava-field span2">
+          <span class="sava-ad-row"><label for="contentBox">More details (optional free text)</label><button type="button" class="sava-btn" id="previewBtn">Preview</button></span>
+          <textarea name="content" id="contentBox" rows="6" placeholder="## Heading&#10;- bullet point&#10;Name | Fee&#10;General | 100"></textarea>
+          <div class="sava-prose sava-ad-preview" id="preview" hidden></div>
+          <small>Use ## for headings, - for bullets, | between columns for tables, **bold** for emphasis.</small>
+        </div>
+      </div>
+
+      <p class="sava-ad-err" id="formErr" role="alert"></p>
+      <div class="sava-ad-foot">
+        <button type="button" class="sava-btn" id="cancelBtn">Cancel</button>
+        <button type="submit" class="sava-btn" data-status="draft">Save draft</button>
+        <button type="submit" class="sava-btn sava-btn-primary" data-status="published">Publish</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ============ Change password ============ -->
+  <dialog id="pwDialog">
+    <form id="pwForm" class="sava-ad-form">
+      <h2>Change password</h2>
+      <label class="sava-field">Current password<input id="pwCur" type="password" autocomplete="current-password" required /></label>
+      <label class="sava-field">New password (10+ characters)<input id="pwNew" type="password" autocomplete="new-password" minlength="10" required /></label>
+      <p class="sava-ad-err" id="pwErr" role="alert"></p>
+      <div class="sava-ad-foot"><button type="button" class="sava-btn" id="pwCancel">Cancel</button><button type="submit" class="sava-btn sava-btn-primary">Change password</button></div>
+    </form>
+  </dialog>
+
+  <div class="sava-toast" id="toast" role="status" hidden></div>
+  <script src="/js/sava-ui.js"></script>
+  <script src="/js/sava-content.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

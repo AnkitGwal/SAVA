@@ -1,0 +1,24 @@
+{
+  "name": "sava",
+  "version": "1.0.0",
+  "description": "SAVA - government jobs, results and admit cards portal",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --env-file=.env app.js",
+    "dev": "node --watch --env-file=.env app.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.4.0",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "express-mysql-session": "^3.0.3",
+    "express-session": "^1.19.0",
+    "multer": "^2.5.0",
+    "mysql2": "^3.24.6"
+  },
+  "overrides": {
+    "mysql2": "$mysql2"
+  }
+}

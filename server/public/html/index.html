@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SAVA — Government Jobs, Results, Admit Cards and Answer Keys</title>
+  <meta name="description" content="Latest government job notifications, results, admit cards, answer keys, syllabus and admissions. Search by exam, department, state or qualification." />
+  <meta name="theme-color" content="#14213D" />
+  <script>
+    // Set the theme before first paint to avoid a light/dark flash.
+    try {
+      var t = localStorage.getItem("sava-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/home.css" />
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebSite","name":"SAVA","potentialAction":{"@type":"SearchAction","target":"/posts?q={search_term_string}","query-input":"required name=search_term_string"}}
+  </script>
+</head>
+<body>
+
+  <!-- ============ Header: brand, search, theme ============ -->
+  <header class="sava-header">
+    <a class="sava-brand" href="/" aria-label="SAVA home"><span class="sava-brand-mark">S</span>SAVA</a>
+    <form class="sava-search" id="searchForm" role="search" action="/posts" autocomplete="off">
+      <input id="searchInput" name="q" type="search" placeholder="Search jobs, results, admit cards" aria-label="Search posts" aria-controls="suggestBox" />
+      <button type="submit">Search</button>
+      <ul id="suggestBox" class="sava-suggest" hidden></ul>
+    </form>
+    <button class="sava-icon-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+    </button>
+  </header>
+
+  <!-- ============ Ticker: newest posts ============ -->
+  <div class="sava-ticker" id="ticker" aria-label="Latest updates">
+    <span class="sava-ticker-tag">Just in</span>
+    <div class="sava-ticker-track"><div class="sava-ticker-inner" id="tickerInner"></div></div>
+  </div>
+
+  <main class="sava-main" id="main">
+
+    <!-- ============ Hero: qualification chips + closing-soon board ============ -->
+    <section class="sava-hm-hero">
+      <div class="sava-hm-hero-copy">
+        <h1>Government jobs, results and admit cards in one place.</h1>
+        <p class="sava-hm-lede">Search by exam, department or state, or start from your qualification.</p>
+        <div class="sava-chips" id="qualChips" aria-label="Browse by qualification"></div>
+        <div class="sava-hm-typelinks" id="typeLinks" aria-label="Browse by category"></div>
+      </div>
+      <aside class="sava-hm-board" aria-labelledby="boardTitle">
+        <h2 id="boardTitle">Closing in the next 10 days</h2>
+        <ul id="closingList" class="sava-hm-closing"></ul>
+      </aside>
+    </section>
+
+    <!-- ============ Latest updates, one column per post type ============ -->
+    <section class="sava-hm-columns" id="columnsGrid" aria-label="Latest updates by category"></section>
+
+    <!-- ============ Most read + jobs by state ============ -->
+    <section class="sava-hm-duo">
+      <div class="sava-panel">
+        <h2>Most read this month</h2>
+        <ol class="sava-hm-ranked" id="trendingList"></ol>
+      </div>
+      <div class="sava-panel">
+        <h2>Jobs by state</h2>
+        <div class="sava-chips" id="stateChips"></div>
+      </div>
+    </section>
+
+    <!-- ============ Email subscription ============ -->
+    <section class="sava-hm-subscribe" id="subscribe">
+      <div class="sava-hm-subscribe-copy">
+        <h2>Get new notifications by email</h2>
+        <p>One email when something new is posted. Unsubscribe any time.</p>
+      </div>
+      <form id="subForm" novalidate>
+        <label class="sava-sr-only" for="subEmail">Email address</label>
+        <input id="subEmail" type="email" placeholder="you@example.com" autocomplete="email" required />
+        <button type="submit">Subscribe</button>
+        <p id="subMsg" class="sava-hm-submsg" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="sava-footer">
+    <p><strong>SAVA</strong> is an independent information website and is not connected to any government body. Always confirm dates, eligibility and fees on the official notification before you apply.</p>
+    <nav aria-label="Footer"><a href="/about">About</a><a href="/contact">Contact</a><a href="/disclaimer">Disclaimer</a><a href="/privacy">Privacy policy</a></nav>
+  </footer>
+
+  <!-- ============ Mobile tab bar ============ -->
+  <nav class="sava-tabbar" aria-label="Quick navigation">
+    <a href="#sec-job">Jobs</a>
+    <a href="#sec-result">Results</a>
+    <a href="#sec-admit_card">Admit cards</a>
+    <a href="#main" id="tabSearch">Search</a>
+    <a href="#subscribe">Alerts</a>
+  </nav>
+
+  <script src="/js/sava-ui.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>
